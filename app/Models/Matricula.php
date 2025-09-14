@@ -32,6 +32,14 @@ class Matricula extends Model
     }
 
     /**
+     * Relacionamento com AreaCurso
+     */
+    public function areaCurso(): BelongsTo
+    {
+        return $this->belongsTo(AreaCurso::class);
+    }
+
+    /**
      * Escopo para filtrar por status
      */
     public function scopeByStatus($query, $status)

@@ -13,12 +13,12 @@ class AreaCurso extends Model
 
     protected $fillable = [
         'titulo',
-        'descricao,'
+        'descricao'
     ];
 
     protected $casts = [
         'created_at' => 'datetime',
-        'updated_at' => 'datetime,'
+        'updated_at' => 'datetime'
     ];
 
     /**

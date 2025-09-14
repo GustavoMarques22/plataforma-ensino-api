@@ -1,8 +1,8 @@
-# 🎓 API Plataforma de Ensino - Professor Jubilut
+# API Plataforma de Ensino
 
 API REST desenvolvida em Laravel para gerenciar alunos, áreas de cursos e matrículas de uma plataforma de ensino online.
 
-## 📋 Funcionalidades
+## Funcionalidades
 
 - **CRUD de Áreas de Cursos**: Gerenciar áreas como Biologia, Química, Física
 - **CRUD de Alunos**: Gerenciar dados dos estudantes
@@ -11,7 +11,7 @@ API REST desenvolvida em Laravel para gerenciar alunos, áreas de cursos e matr�
 - **Validações**: Dados de entrada validados
 - **Relacionamentos**: Um aluno pode ter múltiplas matrículas
 
-## 🛠️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 - **Laravel 10.x** - Framework PHP
 - **MySQL** - Banco de dados
@@ -19,7 +19,7 @@ API REST desenvolvida em Laravel para gerenciar alunos, áreas de cursos e matr�
 - **Laravel Migrations** - Controle de versão do banco
 - **Laravel Seeders** - População do banco com dados iniciais
 
-## 📦 Instalação
+## Instalação
 
 ### Pré-requisitos
 - PHP 8.1 ou superior
