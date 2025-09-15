@@ -1,127 +1,80 @@
-# API Plataforma de Ensino
+# 📚 API Plataforma de Ensino - Professor Jubilut
 
-API REST desenvolvida em Laravel para gerenciar alunos, áreas de cursos e matrículas de uma plataforma de ensino online.
+API REST desenvolvida em **Laravel** para gerenciar alunos, cursos e matrículas de uma plataforma de ensino online.
 
-## Funcionalidades
+## 🎯 **O que esta API faz?**
 
-- **CRUD de Áreas de Cursos**: Gerenciar áreas como Biologia, Química, Física
-- **CRUD de Alunos**: Gerenciar dados dos estudantes
-- **CRUD de Matrículas**: Controlar matrículas dos alunos nos cursos
-- **Busca de Alunos**: Por nome e email
-- **Validações**: Dados de entrada validados
-- **Relacionamentos**: Um aluno pode ter múltiplas matrículas
+- **Gerencia Alunos**: Cadastra, lista, atualiza e exclui estudantes
+- **Gerencia Cursos**: Cria e organiza áreas de cursos (Biologia, Química, etc.)
+- **Controla Matrículas**: Matricula alunos nos cursos (apenas administradores)
+- **Busca Inteligente**: Filtra alunos por nome e email
+- **Validações**: Garante dados corretos e únicos
 
-## Tecnologias Utilizadas
+## 🛠️ **Tecnologias**
 
-- **Laravel 10.x** - Framework PHP
-- **SQLite** - Banco de dados
-- **Eloquent ORM** - Mapeamento objeto-relacional
-- **Laravel Migrations** - Controle de versão do banco
-- **Laravel Seeders** - População do banco com dados iniciais
+- **Laravel 12** - Framework PHP
+- **SQLite** - Banco de dados (mais simples para estudos)
+- **Postman** - Para testar a API
 
-## Instalação
+## ⚡ **Instalação Rápida**
 
-### Pré-requisitos
-- PHP 8.1 ou superior
+### 1. **Pré-requisitos**
+- PHP 8.2+
 - Composer
-- MySQL
-- Laragon (recomendado para Windows)
+- Laragon (Windows)
 
-### Passos para instalação
-
-1. **Clone ou extraia o projeto:**
+### 2. **Configuração**
 ```bash
-cd C:\laragon\www
-# Se clonar do Git:
-git clone <url-do-repositorio> plataforma-ensino-api
-# OU extraia o arquivo ZIP diretamente na pasta www
-```
-
-2. **Entre na pasta do projeto:**
-```bash
-cd plataforma-ensino-api
-```
-
-3. **Instale as dependências:**
-```bash
+# 1. Instalar dependências
 composer install
-```
 
-4. **Configure o arquivo .env:**
-```bash
-# Copie o arquivo de exemplo
-copy .env.example .env
-
-# Configure as variáveis do banco de dados:
-DB_CONNECTION=sqlite
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=plataforma_ensino
-DB_USERNAME=root
-DB_PASSWORD=
-```
-
-5. **Gere a chave da aplicação:**
-```bash
+# 2. Gerar chave da aplicação
 php artisan key:generate
-```
 
-6. **Crie o banco de dados:**
-- No Laragon, acesse o phpMyAdmin
-- Crie um banco chamado `plataforma_ensino`
-
-7. **Execute as migrations:**
-```bash
+# 3. Executar migrações (criar tabelas)
 php artisan migrate
-```
 
-8. **Execute os seeders (opcional - para dados de exemplo):**
-```bash
-php artisan db:seed
-```
-
-## 🚀 Execução
-
-### Inicie o servidor de desenvolvimento:
-```bash
+# 4. Iniciar servidor
 php artisan serve
 ```
 
-### Ou use o Laragon:
-- Inicie o Laragon
-- Acesse: `http://plataforma-ensino-api.test`
+### 3. **Acessar API**
+- **URL Base**: `http://127.0.0.1:8000/api`
+- **Documentação**: `http://127.0.0.1:8000/api/docs`
 
-## 🌐 Endpoints da API
+## 📋 **Endpoints Principais**
 
-### Base URL
-```
-http://localhost:8000/api
-# ou
-http://plataforma-ensino-api.test/api
-```
+### **Alunos**
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| GET | `/api/alunos` | Listar todos os alunos |
+| GET | `/api/alunos/{id}` | Buscar aluno específico |
+| POST | `/api/alunos` | Criar novo aluno |
+| PUT | `/api/alunos/{id}` | Atualizar aluno |
+| DELETE | `/api/alunos/{id}` | Excluir aluno |
 
-### Documentação
-- **GET /api/** - Informações da API
-- **GET /api/docs** - Documentação completa
+### **Áreas de Cursos**
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| GET | `/api/areas-cursos` | Listar cursos |
+| GET | `/api/areas-cursos/{id}` | Buscar curso específico |
+| POST | `/api/areas-cursos` | Criar novo curso |
+| PUT | `/api/areas-cursos/{id}` | Atualizar curso |
+| DELETE | `/api/areas-cursos/{id}` | Excluir curso |
 
-### Alunos
+### **Matrículas** (Apenas Administradores)
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| GET | `/api/matriculas` | Listar matrículas |
+| POST | `/api/matriculas` | Criar matrícula |
+| PUT | `/api/matriculas/{id}` | Atualizar matrícula |
+| DELETE | `/api/matriculas/{id}` | Excluir matrícula |
 
-#### Listar Alunos
+## 🧪 **Testando no Postman**
+
+### **1. Criar Aluno**
 ```http
-GET /api/alunos
-GET /api/alunos?nome=João
-GET /api/alunos?email=joao@email.com
-GET /api/alunos?per_page=5
-```
-
-#### Buscar Aluno por ID
-```http
-GET /api/alunos/{id}
-```
-
-#### Criar Aluno
-```http
-POST /api/alunos
+POST http://127.0.0.1:8000/api/alunos
 Content-Type: application/json
 
 {
@@ -131,39 +84,9 @@ Content-Type: application/json
 }
 ```
 
-#### Atualizar Aluno
+### **2. Criar Curso**
 ```http
-PUT /api/alunos/{id}
-Content-Type: application/json
-
-{
-    "nome": "João Santos",
-    "email": "joao.santos@email.com"
-}
-```
-
-#### Deletar Aluno
-```http
-DELETE /api/alunos/{id}
-```
-
-### Áreas de Cursos
-
-#### Listar Áreas de Cursos
-```http
-GET /api/areas-cursos
-GET /api/areas-cursos?titulo=Biologia
-GET /api/areas-cursos?per_page=5
-```
-
-#### Buscar Área de Curso por ID
-```http
-GET /api/areas-cursos/{id}
-```
-
-#### Criar Área de Curso
-```http
-POST /api/areas-cursos
+POST http://127.0.0.1:8000/api/areas-cursos
 Content-Type: application/json
 
 {
@@ -172,40 +95,11 @@ Content-Type: application/json
 }
 ```
 
-#### Atualizar Área de Curso
+### **3. Criar Matrícula** (Precisa de token de admin)
 ```http
-PUT /api/areas-cursos/{id}
+POST http://127.0.0.1:8000/api/matriculas
 Content-Type: application/json
-
-{
-    "titulo": "Biologia Avançada",
-    "descricao": "Curso completo e avançado de Biologia"
-}
-```
-
-#### Deletar Área de Curso
-```http
-DELETE /api/areas-cursos/{id}
-```
-
-### Matrículas
-
-#### Listar Matrículas
-```http
-GET /api/matriculas
-GET /api/matriculas?status=ativa
-GET /api/matriculas?per_page=5
-```
-
-#### Buscar Matrícula por ID
-```http
-GET /api/matriculas/{id}
-```
-
-#### Criar Matrícula
-```http
-POST /api/matriculas
-Content-Type: application/json
+X-Admin-Token: admin123456
 
 {
     "aluno_id": 1,
@@ -214,352 +108,137 @@ Content-Type: application/json
 }
 ```
 
-#### Atualizar Matrícula
-```http
-PUT /api/matriculas/{id}
-Content-Type: application/json
+## 🔐 **Sistema de Permissões**
 
-{
-    "status": "concluida"
-}
+### **Usuários Normais**
+- ✅ Listar e visualizar dados
+- ❌ Criar/editar/excluir matrículas
+
+### **Administradores**
+- ✅ Todas as operações
+- 🔑 **Token**: `admin123456`
+- 📝 **Header**: `X-Admin-Token: admin123456`
+
+## 📊 **Estrutura do Banco**
+
+```
+alunos
+├── id (PK)
+├── nome
+├── email (único)
+└── data_nascimento
+
+area_cursos
+├── id (PK)
+├── titulo (único)
+└── descricao
+
+matriculas
+├── id (PK)
+├── aluno_id (FK)
+├── area_curso_id (FK)
+├── status (ativa/inativa/concluida)
+└── data_matricula
 ```
 
-#### Deletar Matrícula
-```http
-DELETE /api/matriculas/{id}
-```
+## 🎯 **Exemplo de Uso Completo**
 
-#### Listar Matrículas de um Aluno
-```http
-GET /api/matriculas/aluno/{alunoId}
-```
-
-#### Listar Matrículas de uma Área de Curso
-```http
-GET /api/matriculas/area-curso/{areaCursoId}
-```
-
-## 📊 Estrutura do Banco de Dados
-
-### Tabela: alunos
-- `id` (PK, AUTO_INCREMENT)
-- `nome` (VARCHAR, NOT NULL)
-- `email` (VARCHAR, UNIQUE, NOT NULL)
-- `data_nascimento` (DATE)
-- `created_at`, `updated_at`
-
-### Tabela: area_cursos
-- `id` (PK, AUTO_INCREMENT)
-- `titulo` (VARCHAR, UNIQUE, NOT NULL)
-- `descricao` (TEXT)
-- `created_at`, `updated_at`
-
-### Tabela: matriculas
-- `id` (PK, AUTO_INCREMENT)
-- `aluno_id` (FK → alunos.id)
-- `area_curso_id` (FK → area_cursos.id)
-- `status` (ENUM: 'ativa', 'inativa', 'concluida')
-- `data_matricula` (TIMESTAMP)
-- `created_at`, `updated_at`
-
-## 🧪 Testando a API
-
-### Com cURL
-
-#### Listar alunos
+### **1. Criar dados base**
 ```bash
-curl http://localhost:8000/api/alunos
+# Criar aluno
+POST /api/alunos
+{"nome": "Maria Santos", "email": "maria@email.com"}
+
+# Criar curso
+POST /api/areas-cursos
+{"titulo": "Matemática", "descricao": "Curso de Matemática"}
 ```
 
-#### Buscar aluno por nome
+### **2. Matricular aluno** (como admin)
 ```bash
-curl "http://localhost:8000/api/alunos?nome=Maria"
+POST /api/matriculas
+X-Admin-Token: admin123456
+{"aluno_id": 1, "area_curso_id": 1, "status": "ativa"}
 ```
 
-#### Criar novo aluno
+### **3. Verificar matrícula**
 ```bash
-curl -X POST http://localhost:8000/api/alunos \
-  -H "Content-Type: application/json" \
-  -d '{
-    "nome": "Carlos Teste",
-    "email": "carlos@teste.com",
-    "data_nascimento": "1995-06-10"
-  }'
+GET /api/matriculas/aluno/1
 ```
 
-### Com Postman
+## ⚠️ **Validações Importantes**
 
-1. Importe a documentação da API acessando: `http://localhost:8000/api/docs`
-2. Configure a base URL: `http://localhost:8000/api`
-3. Teste todos os endpoints disponíveis
+- **Email único** para alunos
+- **Título único** para cursos
+- **Matrícula única** por aluno/curso
+- **Data de nascimento** anterior a hoje
+- **Status válido**: ativa, inativa, concluida
 
-## ⚙️ Comandos Úteis
+## 🚀 **Comandos Úteis**
 
-### Migrations
 ```bash
-# Executar migrations
-php artisan migrate
+# Ver status das migrações
+php artisan migrate:status
 
-# Reverter última migration
-php artisan migrate:rollback
-
-# Resetar e reexecutar todas as migrations
-php artisan migrate:refresh
-
-# Resetar e popular com seeders
-php artisan migrate:refresh --seed
-```
-
-### Seeders
-```bash
-### Seeders
-```bash
-# Executar todos os seeders
-php artisan db:seed
-
-# Executar seeder específico
-php artisan db:seed --class=AlunoSeeder
-
-# Limpar e popular novamente
-php artisan migrate:fresh --seed
-```
-
-### Artisan
-```bash
-# Listar todas as rotas
-php artisan route:list
+# Recriar banco do zero
+php artisan migrate:fresh
 
 # Limpar cache
 php artisan cache:clear
-php artisan config:clear
-php artisan view:clear
 
-# Gerar nova chave da aplicação
-php artisan key:generate
+# Ver rotas disponíveis
+php artisan route:list
 ```
 
-## 🔧 Estrutura do Projeto
+## 📝 **Respostas da API**
 
-```
-plataforma-ensino-api/
-├── app/
-│   ├── Http/Controllers/
-│   │   ├── AlunoController.php
-│   │   ├── AreaCursoController.php
-│   │   └── MatriculaController.php
-│   └── Models/
-│       ├── Aluno.php
-│       ├── AreaCurso.php
-│       └── Matricula.php
-├── database/
-│   ├── migrations/
-│   │   ├── create_area_cursos_table.php
-│   │   ├── create_alunos_table.php
-│   │   └── create_matriculas_table.php
-│   └── seeders/
-│       ├── DatabaseSeeder.php
-│       ├── AreaCursoSeeder.php
-│       ├── AlunoSeeder.php
-│       └── MatriculaSeeder.php
-├── routes/
-│   └── api.php
-├── .env
-├── composer.json
-└── README.md
+### **Sucesso (200/201)**
+```json
+{
+    "success": true,
+    "message": "Operação realizada com sucesso",
+    "data": { ... }
+}
 ```
 
-## 📝 Validações Implementadas
-
-### Alunos
-- **nome**: obrigatório, string, máximo 255 caracteres
-- **email**: obrigatório, formato email válido, único
-- **data_nascimento**: opcional, formato data, deve ser anterior ao dia atual
-
-### Áreas de Cursos
-- **titulo**: obrigatório, string, máximo 255 caracteres, único
-- **descricao**: opcional, string, máximo 1000 caracteres
-
-### Matrículas
-- **aluno_id**: obrigatório, deve existir na tabela alunos
-- **area_curso_id**: obrigatório, deve existir na tabela area_cursos
-- **status**: opcional, valores válidos: 'ativa', 'inativa', 'concluida'
-- **data_matricula**: opcional, formato data
-
-## 🔒 Regras de Negócio
-
-1. **Email único**: Cada aluno deve ter um email único
-2. **Título único**: Cada área de curso deve ter um título único
-3. **Matrícula única**: Um aluno não pode ter duas matrículas ativas na mesma área de curso
-4. **Exclusão protegida**: Não é possível excluir alunos ou áreas de curso que possuem matrículas ativas
-5. **Relacionamentos em cascata**: Ao excluir um aluno ou área de curso, suas matrículas também são excluídas
-
-## 🎯 Cenário de Teste Completo
-
-### 1. Criar uma área de curso
-```bash
-curl -X POST http://localhost:8000/api/areas-cursos \
-  -H "Content-Type: application/json" \
-  -d '{
-    "titulo": "História",
-    "descricao": "Curso completo de História do Brasil e Mundial"
-  }'
-```
-
-### 2. Criar um aluno
-```bash
-curl -X POST http://localhost:8000/api/alunos \
-  -H "Content-Type: application/json" \
-  -d '{
-    "nome": "Alex Teste",
-    "email": "alex@teste.com",
-    "data_nascimento": "1996-08-15"
-  }'
-```
-
-### 3. Matricular o aluno
-```bash
-curl -X POST http://localhost:8000/api/matriculas \
-  -H "Content-Type: application/json" \
-  -d '{
-    "aluno_id": 9,
-    "area_curso_id": 6,
-    "status": "ativa"
-  }'
-```
-
-### 4. Buscar aluno por nome
-```bash
-curl "http://localhost:8000/api/alunos?nome=Alex"
-```
-
-### 5. Ver matrículas do aluno
-```bash
-curl http://localhost:8000/api/matriculas/aluno/9
-```
-
-## Tratamento de Erros
-
-A API retorna erros estruturados em formato JSON:
-
-### Erro de Validação (422)
+### **Erro (400/422)**
 ```json
 {
     "success": false,
     "message": "Dados inválidos",
-    "errors": {
-        "email": ["O campo email já está sendo utilizado."],
-        "nome": ["O campo nome é obrigatório."]
-    }
+    "errors": { ... }
 }
 ```
 
-### Erro de Recurso Não Encontrado (404)
+### **Acesso Negado (403)**
 ```json
 {
     "success": false,
-    "message": "Aluno não encontrado"
+    "message": "Acesso negado. Apenas administradores podem criar matrículas."
 }
 ```
 
-### Erro de Regra de Negócio (422)
-```json
-{
-    "success": false,
-    "message": "Este aluno já possui uma matrícula ativa nesta área de curso"
-}
-```
+## 🎓 **Para Estudantes**
 
-### Erro Interno (500)
-```json
-{
-    "success": false,
-    "message": "Erro ao criar aluno",
-    "error": "Detalhes técnicos do erro"
-}
-```
+Este projeto demonstra:
+- **API REST** com Laravel
+- **Relacionamentos** entre tabelas
+- **Validações** de dados
+- **Sistema de permissões** simples
+- **Estrutura MVC** organizada
+- **Testes** com Postman
 
-## 🔄 Códigos de Status HTTP
+## 🔧 **Solução de Problemas**
 
-- **200** - Sucesso (GET, PUT)
-- **201** - Recurso criado (POST)
-- **404** - Recurso não encontrado
-- **422** - Dados inválidos ou regra de negócio violada
-- **500** - Erro interno do servidor
+### **Erro: "Call to undefined relationship"**
+- Execute `composer install` para reinstalar dependências
 
-## 📱 Collection do Postman
+### **Erro: "Table already exists"**
+- Execute `php artisan migrate:fresh` para recriar banco
 
-### Configuração Base
-- **Base URL**: `http://localhost:8000/api`
-- **Headers**: 
-  - `Content-Type: application/json`
-  - `Accept: application/json`
-
-### Requests Principais
-1. **GET** Listar Alunos → `{{base_url}}/alunos`
-2. **POST** Criar Aluno → `{{base_url}}/alunos`
-3. **GET** Buscar Aluno → `{{base_url}}/alunos/1`
-4. **PUT** Atualizar Aluno → `{{base_url}}/alunos/1`
-5. **DELETE** Excluir Aluno → `{{base_url}}/alunos/1`
-
-*(Repetir padrão para areas-cursos e matriculas)*
-
-## 🚀 Deploy
-
-### Preparação para Deploy
-```bash
-# Otimizar para produção
-php artisan config:cache
-php artisan route:cache
-php artisan view:cache
-
-# Gerar chave de produção
-php artisan key:generate --env=production
-```
-
-### Variáveis de Ambiente de Produção
-```env
-APP_ENV=production
-APP_DEBUG=false
-DB_CONNECTION=mysql
-DB_HOST=seu-host-mysql
-DB_DATABASE=plataforma_ensino
-DB_USERNAME=seu-usuario
-DB_PASSWORD=sua-senha
-```
-
-## 🛡️ Segurança
-
-- **Validação de entrada**: Todos os dados são validados antes de serem processados
-- **Sanitização**: Dados são automaticamente sanitizados pelo Laravel
-- **Proteção SQL Injection**: Uso do Eloquent ORM previne ataques
-- **CORS**: Configurado para aceitar requisições de origens permitidas
-
-## 📈 Performance
-
-- **Eager Loading**: Relacionamentos são carregados com `with()` para evitar N+1 queries
-- **Paginação**: Implementada em todas as listagens para melhor performance
-- **Índices**: Criados automaticamente pelo Eloquent em chaves estrangeiras
-
-## 🔧 Troubleshooting
-
-### Problema: Erro de conexão com banco
-**Solução**: Verifique se o MySQL está rodando e as credenciais no .env estão corretas
-
-### Problema: Erro 404 nas rotas da API
-**Solução**: Certifique-se de acessar `/api/` antes do endpoint
-
-### Problema: Erro de chave da aplicação
-**Solução**: Execute `php artisan key:generate`
-
-### Problema: Erro de permissão
-**Solução**: No Windows/Laragon, geralmente não há problemas de permissão
-
-## 🤝 Contribuição
-
-1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
+### **Erro: "Connection refused"**
+- Verifique se o servidor está rodando com `php artisan serve`
 
 ---
+
+**Desenvolvido para fins educacionais** 📚

@@ -78,10 +78,18 @@ class MatriculaController extends Controller
     }
 
     /**
-     * Cria uma nova matrícula
+     * Cria uma nova matrícula (apenas administradores)
      */
     public function store(Request $request): JsonResponse
     {
+        // Verificar se é administrador
+        if (!$this->isAdmin($request)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Acesso negado. Apenas administradores podem criar matrículas.'
+            ], 403);
+        }
+
         try {
             $validated = $request->validate([
                 'aluno_id' => 'required|exists:alunos,id',
@@ -139,10 +147,18 @@ class MatriculaController extends Controller
     }
 
     /**
-     * Atualiza uma matrícula existente
+     * Atualiza uma matrícula existente (apenas administradores)
      */
     public function update(Request $request, $id): JsonResponse
     {
+        // Verificar se é administrador
+        if (!$this->isAdmin($request)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Acesso negado. Apenas administradores podem atualizar matrículas.'
+            ], 403);
+        }
+
         try {
             $matricula = Matricula::find($id);
 
@@ -184,10 +200,18 @@ class MatriculaController extends Controller
     }
 
     /**
-     * Remove uma matrícula
+     * Remove uma matrícula (apenas administradores)
      */
-    public function destroy($id): JsonResponse
+    public function destroy(Request $request, $id): JsonResponse
     {
+        // Verificar se é administrador
+        if (!$this->isAdmin($request)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Acesso negado. Apenas administradores podem excluir matrículas.'
+            ], 403);
+        }
+
         try {
             $matricula = Matricula::find($id);
 
@@ -284,5 +308,20 @@ class MatriculaController extends Controller
                 'error' => $e->getMessage()
             ], 500);
         }
+    }
+
+    /**
+     * Verifica se o usuário é administrador
+     * Método simples para demonstração - em produção use autenticação adequada
+     */
+    private function isAdmin(Request $request): bool
+    {
+        // Verificar header de administrador
+        $adminToken = $request->header('X-Admin-Token');
+        
+        // Token de administrador (em produção, use JWT ou similar)
+        $validAdminToken = 'admin123456';
+        
+        return $adminToken === $validAdminToken;
     }
 }
