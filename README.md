@@ -240,5 +240,3 @@ Este projeto demonstra:
 - Verifique se o servidor está rodando com `php artisan serve`
 
 ---
-
-**Desenvolvido para fins educacionais** 📚
